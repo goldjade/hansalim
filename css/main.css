@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');/* 노토산스 */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"); /* 노토산스 */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
 
 * {
@@ -23,8 +23,8 @@ img {
 html {
   font-size: 16px;
 }
-body{
-  font-family: "Roboto" , "Noto Sans KR", sans-serif;
+body {
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 0;
@@ -32,7 +32,7 @@ body{
   color: #000;
 }
 /* 공통요소 */
-.clearfix::after{
+.clearfix::after {
   content: "";
   position: relative;
   display: block;
@@ -40,7 +40,79 @@ body{
   clear: both;
 }
 
-.wrap{
+.container{
+  position: relative;
+  display: block;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.wrap {
+  position: relative;
+  display: block;
+}
+/* 헤더 */
+.header {
+  position: relative;
+  display: block;
+}
+/* 비주얼 */
+.visual {
+  position: relative;
+  display: block;
+}
+/* 오늘의상품 */
+.today {
+  position: relative;
+  display: block;
+}
+/* 알뜰상품 */
+.sale {
+  position: relative;
+  display: block;
+}
+/* 새물품 */
+.new {
+  position: relative;
+  display: block;
+}
+/* 추천물품 */
+.recommend{
+  position: relative;
+  display: block;
+}
+/* 인기물품 */
+.popular{
+  position: relative;
+  display: block;
+}
+/* 브랜드관 */
+.brand{
+  position: relative;
+  display: block;
+}
+/* 배너 */
+.banner{
+  position: relative;
+  display: block;
+}
+/* 제철요리 */
+.season{
+  position: relative;
+  display: block;
+}
+/* 이용후기 */
+.review{
+  position: relative;
+  display: block;
+}
+/* 커뮤니티 */
+.communituy{
+  position: relative;
+  display: block;
+}
+/* 푸터 */
+.footer{
   position: relative;
   display: block;
 }
