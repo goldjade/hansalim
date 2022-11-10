@@ -40,6 +40,28 @@ body {
   width: 100%;
   clear: both;
 }
+/* section 공통 패딩 */
+.wrap > section {
+  padding: 80px 0;
+}
+/* 타이틀 레이아웃 */
+.section-title{
+  position: relative;
+  display: block; 
+  font-size: 32px;
+  line-height: 40px;
+  color: #000;
+  font-weight: 400;
+}
+
+.section-title b{
+  font-weight: 700;
+}
+
+.section-title .blue {
+  color: #76bd42;
+}
+
 
 .container {
   position: relative;
@@ -193,7 +215,7 @@ body {
 .header-main {
   position: relative;
   display: block;
-  padding: 13px 0px ;
+  padding: 13px 0px;
 }
 
 .header-main-left {
@@ -376,7 +398,6 @@ body {
   position: relative;
   display: block;
   float: left;
-
 }
 .search-txt {
   position: relative;
@@ -393,7 +414,7 @@ body {
   font-size: 13px;
 }
 
-.search-txt:focus{
+.search-txt:focus {
   background: white;
   border: 1px solid #76bd42;
   color: #000;
@@ -424,7 +445,7 @@ body {
   margin-left: 25px;
 }
 
-.bucket-count{
+.bucket-count {
   position: absolute;
   right: -4px;
   top: -1px;
@@ -438,13 +459,116 @@ body {
   text-align: center;
   line-height: 18px;
   border-radius: 50%;
-  fl
 }
 /* 비주얼 */
 .visual {
   position: relative;
   display: block;
+  width: 100%;
+  height: 410px;
+  overflow: hidden;
+  padding: 0 !important;
 }
+.visual-slide {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.visual-slide-page {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.visual-slide-page a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+/*슬라이드 이전 다음 버튼  */
+.visual-prev,
+.visual-next {
+  position: absolute;
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  cursor: pointer;
+  font-size: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.visual-prev {
+  left: calc(50% - 600px);
+  background: rgba(0, 0, 0, 0) url(../images/visualArrP.png) no-repeat;
+  background-position: 0px -64px;
+}
+
+.visual-prev:hover {
+  left: calc(50% - 600px);
+  background: rgba(0, 0, 0, 0.3) url(../images/visualArrP.png) no-repeat;
+  background-position: 0px 0px;
+}
+
+.visual-next {
+  right: calc(50% - 600px);
+  background: rgba(0, 0, 0, 0) url(../images/visualArrN.png) no-repeat;
+  background-position: 0px -64px;
+}
+.visual-next:hover {
+  right: calc(50% - 600px);
+  background: rgba(0, 0, 0, 0.3) url(../images/visualArrN.png) no-repeat;
+  background-position: 0px 0px;
+}
+
+/* 슬라이드 컨트롤러 */
+.visual-control {
+  position: absolute;
+  bottom: 43px;
+  left: calc(50% - 600px + 80px);
+  display: block;
+}
+.visual-play {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: url(../images/visualPlay.png) no-repeat;
+  cursor: pointer;
+  border: 0;
+  float: left;
+}
+.visual-pg {
+  position: relative;
+  display: block;
+  width: 52px;
+  height: 30px;
+  background: url(../images/visualNum.png) no-repeat;
+  float: left;
+  text-align: center;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 5px;
+  color: white;
+}
+.visual-more {
+  position: relative;
+  display: block;
+  width: 29px;
+  height: 30px;
+  background: url(../images/visualMore.png) no-repeat;
+  cursor: pointer;
+  margin-left: 3px;
+  border: 0;
+  float: left;
+}
+
 /* 오늘의상품 */
 .today {
   position: relative;
