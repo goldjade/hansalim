@@ -211,7 +211,7 @@ body {
   left: 0px;
   top: 0px;
   width: 140px;
-  margin-top: ;
+  margin-top: 50px;
 }
 
 .slide-prev,
@@ -618,7 +618,7 @@ body {
   /* 좌표가 아닌 보이는 영역의 "내용"을 이동한다 */
   transform: translateX(-50%);
   top: 42px;
-  display: block;
+  display: none;
   padding: 20px;
   background: #fff;
   border: 1px solid #ddd;
