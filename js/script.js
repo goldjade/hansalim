@@ -426,7 +426,6 @@ window.onload = function () {
   //   sg.innerHTML = "1/1";
   // }
   // 인기 상품 아이콘 출력 기능
-  // 인기 상품 아이콘 출력 기능
   function showPopularIcon() {
     let html = `
     <div class="swiper sw-icon">
@@ -476,7 +475,7 @@ window.onload = function () {
     // 찾아서 저장한 배열의 각 a 태그에 기능을 준다
     // forEach가  for 문 보다 적용하기가 수월
     console.log(tag);
-    tag.forEach(function (item) {
+    tag.forEach(function (item, index) {
       // 현재 item 에는 a 태그가 하나씩 순차적으로 대입된다.
       // mouseover, mouseout 의 콜백 적용
       item.addEventListener("mouseover", function () {
@@ -499,6 +498,11 @@ window.onload = function () {
 
         console.log(title.innerHTML);
         bt.innerHTML = `${title.innerHTML} 물품 더보기 `;
+
+        // 하단의 목록을 갱신한다.
+        // 현재 클릭된 번호를 popularshow에 담는다.
+        popularShow = ind;
+        showPopularGood();
       });
     });
   }
@@ -703,6 +707,12 @@ window.onload = function () {
     goodNewsTag.innerHTML = html;
   }
   // 시즌 화면 출력기능
+  const buyTotal = document.getElementById("buy-total");
+  const buyTotalMoney = document.getElementById("buy-total-money");
+
+  let buyTotalCount = 0;
+  let buyTotalMoneyPrice = 0;
+
   function showSeason() {
     let html = "";
     SEASON_ARR.forEach(function (item, index) {
@@ -712,8 +722,9 @@ window.onload = function () {
           <input
             type="checkbox"
             id="ch${index}"
-            class="season-good-check"
+            class="season-good-check season-item"
             checked
+            value=${item.price}
           />
           <label for="ch${index}" class="season-label"> ${item.title} </label>
           <a href="${item.link}" class="season-good-img">
@@ -729,6 +740,77 @@ window.onload = function () {
       html += tag;
     });
     seasonTag.innerHTML = html;
+
+    // smooth scrollbar 적용
+    Scrollbar.initAll();
+    // 체크박스 각각기능
+    checkBoxFn();
+    // 계산기능 출력하기
+    showBuyGood();
+  }
+
+  // 전체 체크박스 기능
+  const chkAll = document.getElementById("chall");
+  chkAll.addEventListener("change", function () {
+    const chkArr = document.querySelectorAll(".season-item");
+    if (chkAll.checked) {
+      // 전체 체크를 해야 하는 경우
+      chkArr.forEach(function (item) {
+        item.checked = true;
+      });
+    } else {
+      // 전체 체크를 해제 해야 하는 경우
+      chkArr.forEach(function (item) {
+        item.checked = false;
+      });
+    }
+    showBuyGood();
+  });
+
+  // 체크박스 각각의 기능
+  function checkBoxFn() {
+    const chkArr = document.querySelectorAll(".season-item");
+    chkArr.forEach(function (item) {
+      item.addEventListener("change", function () {
+        // 가격을 다시 계산한다
+        showBuyGood();
+      });
+    });
+  }
+  // 계산 출력기능
+  function showBuyGood() {
+    // 체크가 된 카운팅을 한다 그리고 더한다.
+    let count = 0;
+    let priceTotal = 0;
+    const chkArr = document.querySelectorAll(".season-item");
+    // 이거 체크박스임
+    chkArr.forEach(function (item) {
+      const state = item.checked;
+      if (state) {
+        // count = count + 1;
+        count += 1;
+        // count ++ ;
+
+        // 글자를 숫자 정수로 변경함
+        const price = parseInt(item.value);
+        priceTotal += price;
+      }
+    });
+
+    buyTotalCount = count;
+    buyTotalMoneyPrice = priceTotal;
+
+    buyTotal.innerHTML = buyTotalCount;
+    buyTotalMoney.innerHTML = buyTotalMoneyPrice;
+
+    // 전체 선택 버튼 해제
+    if (buyTotalCount === chkArr.length) {
+      // wjscp qjxms cpzm ehldjdigka
+      chkAll.checked = true;
+    } else {
+      // 전체버튼 체크 해제되어야함
+      chkAll.checked = false;
+    }
   }
 
   // data.json 을 로딩
@@ -791,6 +873,8 @@ window.onload = function () {
       showGoodNews();
       // 시즌 목록을 화면에 배치한다.
       showSeason();
+
+      showBuyGood();
     }
   };
 
@@ -800,4 +884,80 @@ window.onload = function () {
   xhttp.open("GET", "data.json");
   // 웹브라우저 기능 실행 요청
   xhttp.send();
+
+  // 커뮤니티 탭 메뉴
+  // 탭 버튼
+  const tabBtArr = document.querySelectorAll(".community-bt");
+  // 탭 내용
+  const tabConArr = document.querySelectorAll(".community-notice dd");
+  // 탭 포커스
+  let tabFocusIndex = 0;
+  // 탭 버튼 클릭 처리
+  tabBtArr.forEach(function (item, index) {
+    item.addEventListener("click", function () {
+      tabFocusIndex = index;
+      tabFocusFn();
+    });
+  });
+  // 탭 포커스 함수를 생성
+  function tabFocusFn() {
+    // 포커스 css 를 적용 및 제거
+    // 일단 모두 제거
+    tabBtArr.forEach(function (item) {
+      item.classList.remove("community-bt-active");
+    });
+    // 인덱스에 해당하는 것만 적용.
+    tabBtArr[tabFocusIndex].classList.add("community-bt-active");
+    // 내용에서 일단 모두 제거
+    tabConArr.forEach(function (item) {
+      item.classList.remove("community-visible-active");
+    });
+    tabConArr[tabFocusIndex].classList.add("community-visible-active");
+  }
+
+  const wrap = this.document.querySelector(".wrap");
+  const header = this.document.querySelector(".header");
+  let scy = 0;
+  // 스크롤시 상단 고정 클래스 추가/제거
+  window.addEventListener("scroll", function () {
+    scy = this.document.documentElement.scrollTop;
+
+    if (scy > 0) {
+      wrap.classList.add("active");
+      header.classList.add("active");
+    } else {
+      wrap.classList.remove("active");
+      header.classList.remove("active");
+    }
+  });
+  // 하단 패밀리 펼침 기능
+  // 목록 열기 버튼
+  const openBt = document.querySelector(".footer-link");
+  // 목록 닫기 버튼
+  const closeBt = document.querySelector(".family-close");
+  // 보여질 패밀리 목록
+  const family = document.querySelector(".family");
+
+  // 스크롤바를 안생기게 하려고 처리
+  const community = document.querySelector(".community");
+  // 기능처리
+  openBt.addEventListener("click", function () {
+    family.classList.add("active");
+    this.classList.add("active");
+    community.classList.add("active");
+  });
+  closeBt.addEventListener("click", function () {
+    family.classList.remove("active");
+    openBt.classList.remove("active");
+    community.classList.remove("active");
+  });
+  // niceScroll 적용 : JQuery
+  // const sgl = $(".season-good-list");
+  // sgl.niceScroll({
+  //   cursorwidth: "8px",
+  //   cursoropacitymax: 0.5,
+  // });
+  // sgl.mouseover(function () {
+  //   sgl.getNiceScroll().resize();
+  // });
 };
