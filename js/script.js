@@ -1,4 +1,8 @@
 window.onload = function () {
+  // 가격 콤마 기능
+  function priceToString(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   // 펼침목록들 보기 기능
   {
     const menuBt = document.getElementById("menu-bt");
@@ -203,7 +207,7 @@ window.onload = function () {
     //           <em>${item.name}</em>(<em>${item.unit}</em>)
     //         </a>
     //         <!-- 제품가격 -->
-    //         <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+    //         <a href="${item.link}" class="good-info-price">${priceToString(item.price)}<em>원</em></a>
     //         <!-- 장바구니 -->
     //         <button class="good-add-cart"></button>
     //     </div>
@@ -236,7 +240,9 @@ window.onload = function () {
               <em>${item.name}</em>(<em>${item.unit}</em>)
             </a>
             <!-- 제품가격 -->
-            <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+            <a href="${item.link}" class="good-info-price">${priceToString(
+        item.price
+      )}<em>원</em></a>
             <!-- 장바구니 -->
             <button class="good-add-cart"></button>
         </div>
@@ -265,7 +271,9 @@ window.onload = function () {
             <em>${item.name}</em>(<em>${item.unit}</em>)
           </a>
           <!-- 제품가격 -->
-          <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+          <a href="${item.link}" class="good-info-price">${priceToString(
+        item.price
+      )}<em>원</em></a>
           <!-- 장바구니 -->
           <button class="good-add-cart"></button>
       </div>
@@ -297,7 +305,9 @@ window.onload = function () {
               <em>${item.name}</em>(<em>${item.unit}</em>)
             </a>
             <!-- 제품가격 -->
-            <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+            <a href="${item.link}" class="good-info-price">${priceToString(
+        item.price
+      )}<em>원</em></a>
             <!-- 장바구니 -->
             <button class="good-add-cart"></button>
         </div>
@@ -382,7 +392,9 @@ window.onload = function () {
             <em>${item.name}</em>(<em>${item.unit}</em>)
           </a>
           <!-- 제품가격 -->
-          <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+          <a href="${item.link}" class="good-info-price">${priceToString(
+        item.price
+      )}<em>원</em></a>
           <!-- 장바구니 -->
           <button class="good-add-cart"></button>
         </div>
@@ -474,7 +486,7 @@ window.onload = function () {
     const tag = document.querySelectorAll(".popular-slide a");
     // 찾아서 저장한 배열의 각 a 태그에 기능을 준다
     // forEach가  for 문 보다 적용하기가 수월
-    console.log(tag);
+    // console.log(tag);
     tag.forEach(function (item, index) {
       // 현재 item 에는 a 태그가 하나씩 순차적으로 대입된다.
       // mouseover, mouseout 의 콜백 적용
@@ -523,7 +535,9 @@ window.onload = function () {
             <em>${item.name}</em>(<em>${item.unit}</em>)
           </a>
           <!-- 제품가격 -->
-          <a href="${item.link}" class="good-info-price">${item.price}<em>원</em></a>
+          <a href="${item.link}" class="good-info-price">${priceToString(
+        item.price
+      )}<em>원</em></a>
           <!-- 장바구니 -->
           <button class="good-add-cart"></button>
         </div>
@@ -732,7 +746,11 @@ window.onload = function () {
           </a>
           <p class="season-good-info">
             <a href="${item.link}" class="season-good-title">${item.title}</a>
-            <a href="${item.link}" class="season-good-price"><em>${item.price}</em>원</a>
+            <a href="${
+              item.link
+            }" class="season-good-price"><em>${priceToString(
+        item.price
+      )}</em>원</a>
           </p>
         </div>
       </li>
@@ -801,7 +819,7 @@ window.onload = function () {
     buyTotalMoneyPrice = priceTotal;
 
     buyTotal.innerHTML = buyTotalCount;
-    buyTotalMoney.innerHTML = buyTotalMoneyPrice;
+    buyTotalMoney.innerHTML = priceToString(buyTotalMoneyPrice);
 
     // 전체 선택 버튼 해제
     if (buyTotalCount === chkArr.length) {
@@ -960,4 +978,35 @@ window.onload = function () {
   // sgl.mouseover(function () {
   //   sgl.getNiceScroll().resize();
   // });
+
+  // 전체메뉴 펼침기능
+  const allMenuArr = document.querySelector(".all-menu-area");
+  const allMenu = document.querySelector(".all-menu");
+  const cateList = document.querySelector(".cate-list");
+  const themeList = document.querySelector(".theme-list");
+  allMenuArr.addEventListener("mouseleave", function () {
+    allMenu.classList.remove("active");
+  });
+  cateList.addEventListener("mouseenter", function () {
+    allMenu.classList.add("active");
+  });
+  // cateList.addEventListener("mouseout", function () {
+  //   allMenu.classList.remove("active");
+  // });
+  themeList.addEventListener("mouseleave", function () {
+    allMenu.classList.remove("active");
+    // 서브 카테고리 보여주기
+    const cateListLis = document.querySelectorAll(".cate-list > li");
+    const cateDepth2 = document.querySelectorAll(".cate-depth2-list");
+    cateListLis.forEach(function (item, index) {
+      item.addEventListener("mouseenter", function () {
+        cateDepth2.forEach(function (itemSub, indexSub) {
+          itemSub.style.display = "none";
+          if (indexSub === index) {
+            itemSub.style.display = "block";
+          }
+        });
+      });
+    });
+  });
 };
